@@ -98,6 +98,13 @@ class Analyzer:
                 repeated_tokens.append(token)
         return repeated_tokens
 
+    def remove_duplicated_sentences(string): 
+        sentences = Analyzer.sentence_tokenizer(string)
+        unique_sentences = []
+        for sentence in sentences:
+            if sentence not in unique_sentences:
+                unique_sentences.append(sentence)
+        return unique_sentences
 
     def runAnalysis(string):
         print('\n Sentences: ->', Analyzer.sentence_tokenizer(string))
