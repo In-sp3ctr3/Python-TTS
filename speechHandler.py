@@ -1,3 +1,5 @@
+from socket import timeout
+import time
 import pyttsx3
     
 def text_to_speech(text):
@@ -15,6 +17,8 @@ def text_to_speech(text):
     # Change voices: 0 for male and 1 for female
     voices = engine.getProperty('voices')
     engine.setProperty('voice', voices[code].id)
-
     engine.say(text)
     engine.runAndWait()
+    if engine.isBusy():
+        time.sleep(10)
+        engine.endLoop()
