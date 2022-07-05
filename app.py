@@ -75,9 +75,9 @@ def upload_text():
     # Parsing.parser(result, parse_tree_name)
     # Parsing.print_named_entities(result)
     filename = secure_filename("temp" + str(randNum))
-    speechHandler.text_to_speech(text)
+    speechHandler.text_to_speech(result)
     data = {'audio':filename+".mp3",
-            'text':text}
+            'text':result}
     #return send_file(path, as_attachment=True)
     return render_template('index.html')
 

@@ -22,7 +22,7 @@ class Parsing:
                 output = grammar.parse(x) 
                 extracted_words.append(output)
                 print("Output: -> ", output)
-            FileHandler.generate_tree_pdf(extracted_words, FileName)
+            #FileHandler.generate_tree_pdf(extracted_words, FileName)
 
         def print_named_entities(pos_sentences):
             named_entities = []

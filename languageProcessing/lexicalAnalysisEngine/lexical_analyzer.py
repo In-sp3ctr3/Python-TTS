@@ -4,12 +4,17 @@ import nltk
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('averaged_perceptron_tagger')
+nltk.download('cmudict')
+nltk.download('words')
+from nltk.corpus import words
 from nltk.util import ngrams
 from nltk.stem import WordNetLemmatizer
 from nltk import tokenize, pos_tag
 from nltk.tokenize import word_tokenize
 from nltk.stem.porter import PorterStemmer
 from nltk.corpus import wordnet
+from nltk.metrics.distance  import edit_distance
+correct_words = words.words()
 
 class Analyzer:
 
@@ -68,10 +73,12 @@ class Analyzer:
         spell_corrector = nltk.corpus.cmudict.dict()
         corrected_tokens = []
         for token in tokens:
-            if token in spell_corrector:
-                corrected_tokens.append(token)
-            else:
-                corrected_tokens.append(spell_corrector.get(token, token))
+            temp = [(edit_distance(token, w),w) for w in correct_words if w[0]==token[0]]
+            corrected_tokens.append(sorted(temp, key = lambda val:val[0])[0][1])
+            # if token in spell_corrector:
+            #     corrected_tokens.append(token)
+            # else:
+            #     corrected_tokens.append(spell_corrector.get(token, token))
         return corrected_tokens
 
     def remove_invalid_words(string):
@@ -105,17 +112,42 @@ class Analyzer:
             if sentence not in unique_sentences:
                 unique_sentences.append(sentence)
         return unique_sentences
+    
+    def remove_redundant_apostrophes(string):
+        tokens = Analyzer.tokenize(string)
+        redundant_tokens = []
+        for token in tokens:
+                redundant_tokens.append(token)
+        return redundant_tokens
+    
+    #search word for duplicate letters
+    def search_for_duplicate_letters(string):
+        tokens = Analyzer.tokenize(string)
+        duplicate_letters = []
+        for token in tokens:
+            result = "".join(dict.fromkeys(token))
+            duplicate_letters.append(result)
+        return duplicate_letters
+
 
     def runAnalysis(string):
         print('\n Sentences: ->', Analyzer.sentence_tokenizer(string))
         print('\n Tokens: ->', Analyzer.tokenize(string))
-        tokens = Analyzer.tokenize(string)
+        tokens = Analyzer.spellCheck(string)
         print('\n Tri-grams: ->', Analyzer.ngram_tokenizer(3, tokens))
+        print('\n corrected tokens: ->', Analyzer.spellCheck(string))
+        print('\n Fixed Words  : ->', Analyzer.search_for_duplicate_letters(string))
         print('\n Stop Words: ->', Analyzer.stop_word_remover(tokens))
         print('\n Normalized Tokens: ->', Analyzer.token_normalizer(tokens))
         print('\n Lemmatized Tokens: ->', Analyzer.lemmatization(tokens))
         print('\n Parts of Speech: ->', Analyzer.tag_pos(tokens))
         print('\n Stemmed Tokens: ->', Analyzer.stemming(tokens))
+
+        #convert from array to string
+        tokens = ' '.join(tokens)
+        return tokens
+
+
 
     # sentences = Analyzer.sentence_tokenizer(string)
     # pos_groupings = []
