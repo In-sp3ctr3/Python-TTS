@@ -13,6 +13,21 @@ from nltk.corpus import wordnet
 from nltk.metrics.distance  import edit_distance
 nltk.download('words')
 from nltk.corpus import words
+
+import pandas as pd
+import numpy as np
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+from nltk import pos_tag, word_tokenize
+from nltk import Tree
+import spacy
+import deplacy
+#run command -> python -m spacy download en_core_web_sm
+en = spacy.load('en_core_web_sm')
+from nltk.corpus import wordnet
+import re
+from pattern.text.en import suggest
+
 correct_words = words.words()
 
 class Optimizer:
@@ -59,3 +74,39 @@ class Optimizer:
             result = "".join(dict.fromkeys(token))
             duplicate_letters.append(result)
         return ' '.join(duplicate_letters)
+
+    #Splitting Independent clauses
+    def spl_by_clause(str_sen):
+        text = str_sen
+        doc = en(text)
+        seen = set()
+        chunks = []
+        for sent in doc.sents:
+            heads = [cc for cc in sent.root.children if cc.dep_ == 'conj']
+            for head in heads:
+                words = [ww for ww in head.subtree]
+                for word in words:
+                    seen.add(word)
+                chunk = (' '.join([ww.text for ww in words]))
+                chunks.append( (head.i, chunk) )
+            unseen = [ww for ww in sent if ww not in seen]
+            chunk = ' '.join([ww.text for ww in unseen])
+            chunks.append( (sent.root.i, chunk) )
+        chunks = sorted(chunks, key=lambda x: x[0])
+        for ii, chunk in chunks:
+            print(chunk)
+        print()
+    
+    def remove_repeated_characters(word):
+        pattern = re.compile(r"(\w*)(\w)\2(\w*)")
+        substitution_pattern = r"\1\2\3"
+        while True:
+            if wordnet.synsets(word):
+                return word
+            new_word = pattern.sub(substitution_pattern,word)
+            if new_word != word:
+                word = new_word
+                continue
+            else:
+                return new_word
+        
