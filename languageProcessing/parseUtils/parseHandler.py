@@ -22,7 +22,7 @@ class Parsing:
             for x in sentences: 
                 output = grammar.parse(x) 
                 extracted_words.append(output)
-                print("Output: -> ", output)
+                print("Parse Tree: -> ", output)
 
         def print_named_entities(pos_sentences):
             named_entities = []

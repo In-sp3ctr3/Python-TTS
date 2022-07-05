@@ -1,154 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Browser voices</title>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIZ Text-to-Speech</title>
+    <script src="https://kit.fontawesome.com/d36fae92aa.js" crossorigin="anonymous"></script>
     <style type="text/css">
-                            * {
-                      box-sizing: border-box;
-                    }
-                    html,
-                    body {
-                      min-height: 100vh;
-                      margin: 0;
-                      padding: 0;
-                    }
-                    body {
-                      font-family: Helvetica, Arial, sans-serif;
-                      color: #0d122b;
-                      display: flex;
-                      flex-direction: column;
-                      padding-left: 1em;
-                      padding-right: 1em;
-                    }
-                    h1 {
-                      text-align: center;
-                      font-weight: 100;
-                    }
-                    header {
-                      border-bottom: 1px solid #0d122b;
-                      margin-bottom: 2em;
-                    }
-                    main {
-                      flex-grow: 2;
-                      display: flex;
-                      justify-content: space-around;
-                      align-items: center;
-                      background-color: #fff;
-                      border-radius: 12px;
-                      margin-bottom: 2em;
-                    }
-                    @keyframes bg-pulse {
-                      0% {
-                        background-color: #fff;
-                      }
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-                      50% {
-                        background-color: #c7ecee;
-                      }
+*, body, html{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
 
-                      100% {
-                        backgrouond-color: #fff;
-                      }
-                    }
-                    main.speaking {
-                      animation: bg-pulse 1.5s alternate ease-in-out infinite;
-                    }
-                    .input {
-                      text-align: center;
-                      width: 100%;
-                    }
-                    label {
-                      display: block;
-                      font-size: 18px;
-                      margin-bottom: 1em;
-                    }
-                    .field {
-                      margin-bottom: 2em;
-                    }
-                    input {
-                      font-size: 24px;
-                      padding: 0.5em;
-                      border: 1px solid rgba(13, 18, 43, 0.25);
-                      border-radius: 6px;
-                      width: 75%;
-                      display: inline-block;
-                      transition: border-color 0.25s;
-                      text-align: center;
-                    }
-                    input:focus,
-                    select:focus {
-                      border-color: rgba(13, 18, 43, 1);
-                    }
-                    select {
-                      width: 75%;
-                      font-size: 24px;
-                      padding: 0.5em;
-                      border: 1px solid rgba(13, 18, 43, 0.25);
-                      border-radius: 6px;
-                      transition: border-color 0.25s;
-                    }
-                    button {
-                      font-size: 18px;
-                      font-weight: 200;
-                      padding: 1em;
-                      width: 200px;
-                      background: transparent;
-                      border: 4px solid #f22f46;
-                      border-radius: 4px;
-                      transition: all 0.4s ease 0s;
-                      cursor: pointer;
-                      color: #f22f46;
-                      margin-bottom: 2em;
-                    }
-                    button:hover,
-                    button:focus {
-                      background: #f22f46;
-                      color: #fff;
-                    }
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color: #66A182;
+}
+.container{
+    /* margin: 35px; */
+    padding: 35px;
+}
+.flex{
+    display: flex;
+}
 
-                    a {
-                      color: #0d122b;
-                    }
-                    .error {
-                      color: #f22f46;
-                      text-align: center;
-                    }
-                    footer {
-                      border-top: 1px solid #0d122b;
-                      text-align: center;
-                    }
+.flex-direction-column{
+    flex-direction: column;
+}
+
+.justify-content-center{
+    justify-content: center;
+}
+
+.align-items-center{
+    align-items: center;
+}
+
+.pg-title{
+    color: #f7f7f7;
+}
+
+.cta-speak{
+    color: #f7f7f7;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 5px;
+    padding: 5px;
+
+}
+
+textarea{
+    width: 700px;
+    height: 230px;
+    resize: none;
+    overflow-y: scroll;
+    word-wrap: normal;
+}
+
+.btn{
+    margin: 10px;
+    padding: 10px;
+    background-color: #1D3461;
+    border: none;
+    border-radius: 10px;
+    color: #f7f7f7;
+    font-weight: bold;
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.btn:hover{
+    background-color: #204286;
+}
     </style>
-  </head>
-      <body>
-
-          <header>
-              <h1>Text to Speech</h1>
-          </header>
-
-        <main>
-          <form class="input" id="voice-form" method="post" action="/text">
-                <div class="field">
-                    <label for="speech">Type Something</label>
-                    <input type="text" name="text" id="speech" required />
-                </div>
-              <button>
-                    Say it!
-              </button>
-          </form>
-           <form action="upload" method=post enctype=multipart/form-data>
-      <p><input type=file name=file>
-         <input type=submit value=Upload>
+</head>
+<body>
+    <div class="container flex flex-direction-column justify-content-center align-items-center"
+    id="maincontain">
+        <h2 class="pg-title">Liz Text to Speech <i class="fa-solid fa-microphone"></i></h2>
+        <img src="/static/lizrobot.png" 
+        alt="Liz Robot"
+        width="240px"
+        height="240px">
+        <p class="cta-speak">Enter some text for Liz to say</p>
+        <form class="input" id="voice-form" method="post" action="/text">
+        <textarea name="text" id="speech" required></textarea>
+        <button class="btn" id="doSpeak">
+            Speak it!
+        </button>
     </form>
-        </main>
-
-        <footer>
-            <p>
-                Built by <a href=<BLOG LINK>Insp3ctr3<YOUR NAME></a>
-            </p>
-        </footer>
-
-      </body>
+    <!-- <form action="upload" method=post enctype=multipart/form-data>
+        <p><input type=file name=file>
+           <input type=submit value=Upload>
+      </form> -->
+    </div>
+</body>
 </html>
