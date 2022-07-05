@@ -10,4 +10,6 @@ pip install flask
 
 pip install re
 
+pip install numpy
+
 brew install imagemagick

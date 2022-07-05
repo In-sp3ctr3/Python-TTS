@@ -70,12 +70,12 @@ def upload_text():
     parse_tree_name = "parse-tree-"+str(randNum)+".pdf" 
     result = Analyzer.runAnalysis(text)
     randNum = randrange(1,900)
-    # parse_tree_name = "parse-tree-"+str(randNum)+".pdf"
-    # path = 'parseDocs/' + parse_tree_name
-    # Parsing.parser(result, parse_tree_name)
-    # Parsing.print_named_entities(result)
+    parse_tree_name = "parse-tree-"+str(randNum)+".pdf"
+    path = 'parseDocs/' + parse_tree_name
+    Parsing.parser(result, parse_tree_name)
+    Parsing.print_named_entities(result)
     filename = secure_filename("temp" + str(randNum))
-    speechHandler.text_to_speech(result)
+    speechHandler.text_to_speech(text)
     data = {'audio':filename+".mp3",
             'text':result}
     #return send_file(path, as_attachment=True)

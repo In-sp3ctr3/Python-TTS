@@ -113,14 +113,6 @@ class Analyzer:
                 unique_sentences.append(sentence)
         return unique_sentences
     
-    def remove_redundant_apostrophes(string):
-        tokens = Analyzer.tokenize(string)
-        redundant_tokens = []
-        for token in tokens:
-                redundant_tokens.append(token)
-        return redundant_tokens
-    
-    #search word for duplicate letters
     def search_for_duplicate_letters(string):
         tokens = Analyzer.tokenize(string)
         duplicate_letters = []
@@ -144,18 +136,18 @@ class Analyzer:
         print('\n Stemmed Tokens: ->', Analyzer.stemming(tokens))
 
         #convert from array to string
-        tokens = ' '.join(tokens)
-        return tokens
+        #tokens = ' '.join(tokens)
+        #return tokens
 
 
 
-    # sentences = Analyzer.sentence_tokenizer(string)
-    # pos_groupings = []
-    # for unit in sentences:
-    #   pos_grouping = (Analyzer.tag_pos(Analyzer.tokenize(unit)))
-    #   pos_groupings.append(pos_grouping)
+        sentences = Analyzer.sentence_tokenizer(string)
+        pos_groupings = []
+        for unit in sentences:
+            pos_grouping = (Analyzer.tag_pos(Analyzer.tokenize(unit)))
+            pos_groupings.append(pos_grouping)
 
 
-    # return pos_groupings
+        return pos_groupings
 
 

@@ -1,6 +1,7 @@
 from os import name
 import nltk
 from nltk import RegexpParser
+nltk.download('maxent_ne_chunker')
 import fileHandler as FileHandler
 
 class Parsing:
@@ -22,7 +23,6 @@ class Parsing:
                 output = grammar.parse(x) 
                 extracted_words.append(output)
                 print("Output: -> ", output)
-            #FileHandler.generate_tree_pdf(extracted_words, FileName)
 
         def print_named_entities(pos_sentences):
             named_entities = []
