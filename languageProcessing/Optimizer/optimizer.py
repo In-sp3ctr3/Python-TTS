@@ -109,4 +109,26 @@ class Optimizer:
                 continue
             else:
                 return new_word
-        
+
+    def patois_to_english(tokens):
+        common_words = {
+            'mi': 'me',
+            'teif': 'theif',
+            'weh' : 'where',
+            'guh' : 'go',
+            'gyal': 'girl',
+            'bwoy': 'boy'
+        }  
+
+        patois_words_found = []
+        for idx, word in enumerate(tokens):
+            if word in common_words:
+                patois_words_found.append(word)
+                replacement = common_words[word]
+                tokens[idx] = replacement
+                print(f'Old word: {word}, replaced with: {replacement}')
+        print('New Sentence: ' + ' '.join(tokens))
+
+
+Optimizer.patois_to_english(Analyzer.tokenize('The gyal ran.'))
+
