@@ -81,14 +81,14 @@ textarea{
 <body>
     <div class="container flex flex-direction-column justify-content-center align-items-center"
     id="maincontain">
-        <h2 class="pg-title">Liz Text to Speech <i class="fa-solid fa-microphone"></i></h2>
+        <h2 class="pg-title">Liz Text to Speech v2 <i class="fa-solid fa-microphone"></i></h2>
         <img src="/static/lizrobot.png" 
         alt="Liz Robot"
         width="240px"
         height="240px">
         <p class="cta-speak">Enter some text for Liz to say</p>
         <form class="input" id="voice-form" method="post" action="/text">
-        <textarea name="text" id="speech" required></textarea>
+        <textarea name="text" id="speech" required></textarea><br>
         <button class="btn" id="doSpeak">
             Speak it!
         </button>
